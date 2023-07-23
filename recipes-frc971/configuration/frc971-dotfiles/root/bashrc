@@ -1,0 +1,67 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+export LD_LIBRARY_PATH=~/bin/lib:${LD_LIBRARY_PATH}
+export LD_RUN_PATH=~/bin/lib:${LD_RUN_PATH}
+
+bash /etc/profile
+
+# If not running interactively, don't do anything:
+[ -z "$PS1" ] && return
+
+# Save and reload the history after every command.
+shopt -s histappend
+
+# don't put duplicate lines in the history. See bash(1) for more options
+export HISTSIZE=1000000
+export HISTCONTROL=ignoreboth
+export HISTIGNORE="history | grep*:c:l:cl"
+export EDITOR="vim"
+export HOSTNAME
+xhost +local:root 2> /dev/null > /dev/null
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+PATH=~/bin:${PATH}:/sbin:/usr/sbin
+
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --color=auto'
+fi
+
+alias ll='ls -l'
+alias h='history 20'
+alias l='ls -la --color=auto'
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" -a -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profiles
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+if [ ! "$(type -t __git_ps1)" ]; then
+    function __git_ps1() {
+        exit 0
+    }
+fi
+
+if [ "$USER" == "root" ]; then
+	PS1='${debian_chroot:+($debian_chroot)}\[\033[32m\]\u\[\033[34m\][\!] \[\033[35m\]\h\[\033[31m\]$(__git_ps1) \w\n\[\033[00m\]\$ '
+else
+	PS1='${debian_chroot:+($debian_chroot)}\[\033[32m\]\u[\!] \[\033[34m\]\h\[\033[31m\]$(__git_ps1) \w\n\[\033[00m\]\$ '
+fi
+
+alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# To clone:
+# git clone --separate-git-dir=$HOME/.dotfiles git@github.com:AustinSchuh/.dotfiles.git tmpdotfiles
+# rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
+# rm -r tmpdotfiles
+# dotfiles config --local status.showUntrackedFiles no
