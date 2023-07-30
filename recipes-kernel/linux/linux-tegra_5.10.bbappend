@@ -1,3 +1,5 @@
+FILESEXTRAPATHS:prepend := "${THISDIR}/linux-tegra-5.10/:"
+
 SRCBRANCH = "tegra-5.10-austin"
 SRCREV = "c244ad8d861cede034fea2219cfa21c310561aca"
 
