@@ -13,14 +13,14 @@ do_compile() {
 }
 
 do_install() {
-   install -D -m0755 root/bashrc ${D}${base_prefix}/${ROOT_HOME}/.bashrc
-   install -D -m0755 root/bashrc ${D}${base_prefix}/${ROOT_HOME}/.bash_profile
+   install -D -m0755 root/bashrc ${D}${base_prefix}${ROOT_HOME}/.bashrc
+   install -D -m0755 root/bashrc ${D}${base_prefix}${ROOT_HOME}/.bash_profile
    install -D -m0755 ${WORKDIR}/camera_overrides.isp ${D}${base_prefix}/var/nvidia/nvcam/settings/camera_overrides.isp
 }
 
 RDEPENDS:${PN} += " git"
 RDEPENDS:${PN} += " bash-completion git-bash-completion"
 
-FILES:${PN} = "${base_prefix}/root/.bashrc"
-FILES:${PN}:append = " ${base_prefix}/root/.bash_profile"
+FILES:${PN} = "${base_prefix}${ROOT_HOME}/.bashrc"
+FILES:${PN}:append = " ${base_prefix}${ROOT_HOME}/.bash_profile"
 FILES:${PN}:append = " ${base_prefix}/var/nvidia/nvcam/settings/camera_overrides.isp"
