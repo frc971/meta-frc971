@@ -39,6 +39,7 @@ IMAGE_INSTALL:append = "\
     bash-completion \
     linux-firmware-rtl8168 \
     e2fsprogs-tune2fs \
+    e2fsprogs-resize2fs \
 "
 
 ROOT_HOME="/root"
