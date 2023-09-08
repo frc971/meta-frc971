@@ -42,6 +42,11 @@ To install, extract then run:
 sudo ./initrd-flash
 ```
 
+To build the SDK for the sysroot, run:
+```
+bitbake frc971-sysroot-image -c populate_sdk
+```
+
 
 To use libargus to encode and send video:
 ```
