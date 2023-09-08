@@ -32,10 +32,10 @@ export MACHINE=orin-nx-8g
 To then build, run:
 
 ```
-bitbake core-image-full-cmdline
+bitbake frc971-image
 ```
 
-The image will live in `build/tmp/deploy/images/orin-nx-8g/core-image-full-cmdline-orin-nx-8g.tegraflash.tar.gz`
+The image will live in `build/tmp/deploy/images/orin-nx-8g/frc971-image-orin-nx-8g.tegraflash.tar.gz`
 
 To install, extract then run:
 ```
