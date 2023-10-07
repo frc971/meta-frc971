@@ -9,7 +9,7 @@ Then, make sure you've moved into the directory
 cd yocto
 ```
 
-Then clone all the repos.
+Then clone all the repos, making sure meta-frc971 lives inside yocto.
 ```
 git clone git://git.yoctoproject.org/poky -b kirkstone
 git clone https://github.com/OE4T/meta-tegra.git -b kirkstone
