@@ -40,7 +40,12 @@ IMAGE_INSTALL:append = "\
     linux-firmware-rtl8168 \
     e2fsprogs-tune2fs \
     e2fsprogs-resize2fs \
+    v4l-utils \
 "
+
+#    nv-imx296-mod 
+#    tensorrt-plugins-prebuilt 
+#    tensorrt-core 
 
 ROOT_HOME="/root"
 VOLATILE_LOG_DIR="no"

@@ -51,9 +51,16 @@ bitbake frc971-sysroot-image -c populate_sdk
 To use libargus to encode and send video:
 ```
 gst-launch-1.0 nvarguscamerasrc ! "video/x-raw(memory:NVMM),width=1920,height=1080,framerate=60/1" ! nvvidconv ! nvv4l2h264enc insert-sps-pps=1 idrinterval=15 ! h264parse ! rtph264pay ! udpsink host=10.9.71.13 port=5000 sync=0
+gst-launch-1.0 nvarguscamerasrc ! "video/x-raw(memory:NVMM),width=1456,height=1088,framerate=30/1" ! nvvidconv ! nvv4l2h264enc insert-sps-pps=1 idrinterval=15 ! h264parse ! rtph264pay ! udpsink host=10.9.71.13 port=5000 sync=0
 ```
 
 And to receive it on your laptop:
 ```
 gst-launch-1.0 udpsrc port=5000 ! 'application/x-rtp,encoding-name=H264,payload=96' ! rtph264depay ! avdec_h264 ! xvimagesink sync=0
+```
+
+
+v4lctl
+```
+v4l2-ctl -d /dev/video0 --set-fmt-video=width=1456,height=1088,pixelformat=RG10 --set-ctrl frame_rate=30000000 --set-ctrl bypass_mode=0 --stream-mmap --stream-count=10 --stream-to=test.raw
 ```
