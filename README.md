@@ -47,11 +47,16 @@ To build the SDK for the sysroot, run:
 bitbake frc971-sysroot-image -c populate_sdk
 ```
 
+imx477 should be plugged into cam1, closest to the back, and imx296 should be plugged into cam0, closest to the front.
 
-To use libargus to encode and send video:
+To use libargus to encode and send video with the imx477:
 ```
 gst-launch-1.0 nvarguscamerasrc ! "video/x-raw(memory:NVMM),width=1920,height=1080,framerate=60/1" ! nvvidconv ! nvv4l2h264enc insert-sps-pps=1 idrinterval=15 ! h264parse ! rtph264pay ! udpsink host=10.9.71.13 port=5000 sync=0
-gst-launch-1.0 nvarguscamerasrc ! "video/x-raw(memory:NVMM),width=1456,height=1088,framerate=30/1" ! nvvidconv ! nvv4l2h264enc insert-sps-pps=1 idrinterval=15 ! h264parse ! rtph264pay ! udpsink host=10.9.71.13 port=5000 sync=0
+```
+
+And with the imx296:
+```
+gst-launch-1.0 nvarguscamerasrc sensor-id=1 wbmode=0 ispdigitalgainrange="1 1" gainrange="1 16" ! "video/x-raw(memory:NVMM),width=1456,height=1088,framerate=60/1" ! nvvidconv ! nvv4l2h264enc insert-sps-pps=1 idrinterval=15 ! h264parse ! rtph264pay ! udpsink host=10.9.71.13 port=5000 sync=0
 ```
 
 And to receive it on your laptop:
