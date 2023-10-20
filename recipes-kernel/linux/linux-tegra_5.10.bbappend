@@ -1,7 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/linux-tegra-5.10/:"
 
 SRCBRANCH = "tegra-5.10-austin-rebase"
-SRCREV = "237f6b54f06d6c13cc8374e8d7a62934fc1c5c90"
+SRCREV = "f09e9ff9ca91c52c3991271b0a303cb06ff10187"
 
 SRC_REPO = "github.com/frc971/linux.git;protocol=https;branch=${SRCBRANCH}"
 #SRC_REPO = "file:///home/austin/local/linux-tegra-5.10/.git;protocol=file;branch=${SRCBRANCH}"

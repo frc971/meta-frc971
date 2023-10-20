@@ -74,3 +74,9 @@ v4lctl
 ```
 v4l2-ctl -d /dev/video0 --set-fmt-video=width=1456,height=1088,pixelformat=RG10 --set-ctrl frame_rate=30000000 --set-ctrl bypass_mode=0 --stream-mmap --stream-count=10 --stream-to=test.raw
 ```
+
+To capture a kernelshark trace
+
+```
+trace-cmd record -e all -v -e preemptirq* -e raw_syscalls*
+```
