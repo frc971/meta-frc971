@@ -369,8 +369,7 @@ static int imx296_set_exposure(struct tegracam_device *tc_dev, s64 val)
 		//&(s_data->sensor_props.sensor_modes[s_data->mode_prop_idx]);
 	int err = 0;
 
-
-	val = min_t(int, val, priv->vmax);
+        val = min_t(int, val, priv->vmax - 4);
 
         dev_dbg(s_data->dev, "%s: Setting exposure control to: %lld\n", __func__,
                 priv->vmax - val);

@@ -14,7 +14,7 @@ IMAGE_INSTALL = "\
 
 IMAGE_INSTALL:append = "\
     kernel-modules \
-    cuda-samples \
+    cuda-samples-11-8 \
     argus-samples \
     gstreamer1.0-plugins-nvarguscamerasrc \
     tegra-argus-daemon \
@@ -45,6 +45,13 @@ IMAGE_INSTALL:append = "\
     trace-cmd \
     sysstat \
     gdb \
+    libcurand-11-8-dev \
+    libnpp-11-8-dev \
+    cuda-cudart-11-8-dev \
+    cuda-target-environment \
+    tegra-tools-jetson-clocks \
+    nsight-systems-cli \
+    nsight-systems-cli-qdstrmimporter \
 "
 
 #    nv-imx296-mod 
