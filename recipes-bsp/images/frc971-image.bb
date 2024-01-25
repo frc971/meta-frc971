@@ -50,6 +50,7 @@ IMAGE_INSTALL:append = "\
     cuda-cudart-11-8-dev \
     cuda-target-environment \
     tegra-tools-jetson-clocks \
+    tegra-redundant-boot-base \
     nsight-systems-cli \
     nsight-systems-cli-qdstrmimporter \
 "
