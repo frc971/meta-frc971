@@ -252,10 +252,8 @@ static int imx296_set_gain(struct tegracam_device *tc_dev, s64 val)
 	struct device *dev = tc_dev->dev;
 	const struct sensor_mode_properties *mode =
 		&(s_data->sensor_props.sensor_modes[s_data->mode_prop_idx]);
-	//imx296_reg reg_list[2];
 	int err = 0;
 	s16 gain;
-	//int i;
 	dev_dbg(dev, "%s: start imx296_set_gain\n", __func__);
 
 	if (val < mode->control_properties.min_gain_val)
@@ -350,8 +348,8 @@ static int imx296_set_frame_rate(struct tegracam_device *tc_dev, s64 val)
 	imx296_write(s_data, IMX296_VMAX, vmax, &err);
         if (err == 0) {
 		imx296_write(s_data, IMX296_HMAX, 1100, &err);
-		priv->vmax = vmax;
-	}
+                priv->vmax = vmax;
+        }
 
 	//frame_length = (u32)(mode->signal_properties.pixel_clock.val *
 		//(u64)mode->control_properties.framerate_factor /
@@ -364,22 +362,26 @@ static int imx296_set_exposure(struct tegracam_device *tc_dev, s64 val)
 {
 	struct camera_common_data *s_data = tc_dev->s_data;
 	struct imx296 *priv = (struct imx296 *)tc_dev->priv;
-	//struct device *dev = tc_dev->dev;
-	//const struct sensor_mode_properties *mode =
-		//&(s_data->sensor_props.sensor_modes[s_data->mode_prop_idx]);
-	int err = 0;
+	struct device *dev = tc_dev->dev;
+        const struct sensor_mode_properties *mode =
+            &(s_data->sensor_props.sensor_modes[s_data->mode_prop_idx]);
 
-        val = min_t(int, val, priv->vmax - 4);
+        int err = 0;
 
-        dev_dbg(s_data->dev, "%s: Setting exposure control to: %lld\n", __func__,
-                priv->vmax - val);
+        s64 new_val = min_t(s64, val, ((s64)(priv->vmax - 4)));
+        u32 shs1 = priv->vmax - new_val;
+
+        dev_dbg(s_data->dev,
+                "%s: Setting exposure control to: %u, val is %lld, new_val "
+                "%lld vmax %u\n",
+                __func__, shs1, val, new_val, priv->vmax);
 
         // val -> us
-	    //mode->control_properties.exposure_factor
+        // mode->control_properties.exposure_factor
 
-	imx296_write(s_data, IMX296_SHS1, priv->vmax - val, &err);
+        imx296_write(s_data, IMX296_SHS1, shs1, &err);
 
-	return err;
+        return err;
 }
 
 static struct tegracam_ctrl_ops imx296_ctrl_ops = {
@@ -975,7 +977,13 @@ static int imx296_probe(struct i2c_client *client,
 
 	dev_dbg(dev, "detected imx296 sensor\n");
 
-	return 0;
+        const struct sensor_mode_properties *mode =
+            &(priv->s_data->sensor_props
+                  .sensor_modes[priv->s_data->mode_prop_idx]);
+        priv->vmax =
+            imx296_compute_vmax(mode, mode->control_properties.max_framerate);
+
+        return 0;
 }
 
 static int imx296_remove(struct i2c_client *client)
