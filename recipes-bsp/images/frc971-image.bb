@@ -42,6 +42,7 @@ IMAGE_INSTALL:append = "\
     e2fsprogs-resize2fs \
     v4l-utils \
     nv-imx296-mod \
+    canivore-usb-mod \
     trace-cmd \
     sysstat \
     gdb \
