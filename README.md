@@ -1,23 +1,6 @@
 To build, start by making a directory.
 
-```
-mkdir yocto
-```
-
-Then, make sure you've moved into the directory
-```
-cd yocto
-```
-
-Then clone all the repos, making sure meta-frc971 lives inside yocto.
-```
-git clone git://git.yoctoproject.org/poky -b kirkstone
-git clone https://github.com/OE4T/meta-tegra.git -b kirkstone
-git clone https://github.com/openembedded/meta-openembedded.git -b kirkstone
-git clone https://github.com/frc971/meta-frc971.git -b main
-```
-
-Then, symlink in the conf files.
+First, symlink in the conf files.
 
 ```
 mkdir -p build/conf
