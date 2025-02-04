@@ -12,7 +12,7 @@ fix_environment() {
 
 pkg_postinst_ontarget:${PN} () {
     #!/bin/bash
-    resize2fs /
+    resize2fs /dev/nvme0n1p1
 }
 
 
@@ -160,6 +160,11 @@ IMAGE_INSTALL:append = "\
     libgcc \
     frc971-dotfiles \
     cuda-toolkit-11-8 \
+    tensorrt-core \
+    tensorrt-core-dev \
+    tensorrt-plugins \
+    tensorrt-plugins-dev \
+    tensorrt-trtexec \
 "
 
 PACKAGE_EXCLUDE = "dwarfsrcfiles elfutils libmicrohttpd curl openssl"
